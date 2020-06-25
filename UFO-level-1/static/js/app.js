@@ -22,7 +22,8 @@ function runEnter() {
   
   
     var filteredData = tableData.filter(info => info.datetime === inputValue);
-    
+    tbody.html("")
+
     filteredData.forEach(function(print) {
         console.log(print);
         var row = tbody.append("tr");

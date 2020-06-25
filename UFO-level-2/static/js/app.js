@@ -1,38 +1,84 @@
 // from data.js
 var tableData = data;
+
 var button = d3.select("#filter-btn");
-var form = d3.select("#form");
-button.on("click", runEnter);
-form.on("submit",runEnter);
+var form = d3.select(".form-group");
 var tbody = d3.select("tbody");
 
+button.on("click", runEnter);
 
-// YOUR CODE HERE!
-// Get a reference to the table body
+
 function runEnter() {
 
-    // Prevent the page from refreshing
-    d3.event.preventDefault();
-    
-    // Select the input element and get the raw HTML node
-    var inputElement = d3.select("#datetime");
+  d3.event.preventDefault();
   
-    // Get the value property of the input element
-    var inputValue = inputElement.property("value");
-  
-  
-    var filteredData = tableData.filter(info => info.datetime === inputValue);
-    
-    filteredData.forEach(function(print) {
-        console.log(print);
-        var row = tbody.append("tr");
-        Object.entries(print).forEach(function([key, value]) {
-          console.log(key, value);
-          // Append a cell to the row for each value
-          // in the weather report object
-          var cell = row.append("td");
-          cell.text(value);
-        });
-      });
+  var inputElement = d3.select("#datetime");
+  var inputDate = inputElement.property("value");
 
+  var inputElement2 = d3.select("#city");
+  var inputCity = inputElement2.property("value");
+
+  var inputElement3 = d3.select("#state");
+  var inputState = inputElement3.property("value");
+
+  var inputElement4 = d3.select("#country");
+  var inputCountry = inputElement4.property("value");
+
+  var inputElement5 = d3.select("#shape");
+  var inputShape = inputElement5.property("value");
+
+  var checker = false;
+
+  var filteredData =tableData;
+
+  if (inputDate !== ""){
+      filteredData = filteredData.filter(ufo => ufo.datetime === inputDate);
+      checker = true;
+  };
+
+  tbody.html("");
+
+
+  if (inputCity !== ""){
+      filteredData = filteredData.filter(ufo => ufo.city === inputCity);
+      checker = true;
+  };
+
+  tbody.html("");
+
+
+  if (inputState !== ""){
+      filteredData = filteredData.filter(ufo => ufo.state === inputState);
+      checker = true;
+  };
+
+  tbody.html("");
+
+
+  if (inputCountry !== ""){
+      filteredData = filteredData.filter(ufo => ufo.country === inputCountry);
+      checker = true;
+  };
+
+  tbody.html("");
+
+
+  if (inputShape !== ""){
+      filteredData = filteredData.filter(ufo => ufo.shape === inputShape);
+      checker = true;
+  };
+
+  tbody.html("");
+
+ 
+  if (checker = true){
+  filteredData.forEach((ufoReport) => {
+      var row = tbody.append("tr");
+      Object.entries(ufoReport).forEach(([key, value]) => {
+        var cell = row.append("td");
+        cell.text(value);
+      });
+    });
+  };
+  
 };
